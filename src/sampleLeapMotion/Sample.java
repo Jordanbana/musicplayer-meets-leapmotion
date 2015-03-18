@@ -8,6 +8,7 @@ package sampleLeapMotion;
 * between Leap Motion and you, your company or other organization.             *
 \******************************************************************************/
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.Math;
@@ -123,7 +124,7 @@ class SampleListener extends Listener {
                         // Clockwise if angle is less than 90 degrees
                         clockwiseness = "clockwise";
                         
-                        //CIRCLE MOVEMENT STARTS SONG!!!!!!!!!!!!!
+                        //CIRCLE MOVEMENT CLOCKWISE STARTS SONG!!!!!!!!!!!!!
                         testing.clip.start();
                         try {
                         	testing.clip.close();
@@ -134,14 +135,13 @@ class SampleListener extends Listener {
 							e.printStackTrace();
 						}
                         // NOW TRYING TO CHANGE ALBUM PIC
-                        
                 		String fullUrlPath = testing.BASE_URL_PATH + testing.URL_PATHS[1];
                 		try {
                             URL imageurl = new URL(fullUrlPath);
                             BufferedImage img = ImageIO.read(imageurl);
-                            ImageIcon icon = new ImageIcon(img);
+                            Image ResizedImage = img.getScaledInstance(475, 475,  java.awt.Image.SCALE_SMOOTH);
+                            ImageIcon icon = new ImageIcon(ResizedImage);
                             testing.albumIconLabel.setIcon(icon);
-                            //JOptionPane.showMessageDialog(null, icon);
                          } catch (MalformedURLException e) {
                             e.printStackTrace();
                          } catch (IOException e) {
@@ -153,6 +153,33 @@ class SampleListener extends Listener {
                         
                     } else {
                         clockwiseness = "counterclockwise";
+                        //CIRCLE MOVEMENT STARTS SONG!!!!!!!!!!!!!
+                        testing.clip.start();
+                        try {
+                        	testing.clip.close();
+							testing.previousSong();
+						} catch (UnsupportedAudioFileException | IOException
+								| LineUnavailableException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                        // NOW TRYING TO CHANGE ALBUM PIC
+                		String fullUrlPath = testing.BASE_URL_PATH + testing.URL_PATHS[0];
+                		try {
+                            URL imageurl = new URL(fullUrlPath);
+                            BufferedImage img = ImageIO.read(imageurl);
+                            Image ResizedImage = img.getScaledInstance(475, 475,  java.awt.Image.SCALE_SMOOTH);
+                            ImageIcon icon = new ImageIcon(ResizedImage);
+                            testing.albumIconLabel.setIcon(icon);
+                         } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                         } catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                        
+                        
+                        
                     }
 
                     // Calculate angle swept since last frame
